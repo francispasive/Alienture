@@ -8,6 +8,7 @@ namespace FrancisPasive.Platformer._2D.Character
 
         [SerializeField] private float m_maxMoveSpeed = 10f;
         [SerializeField] private float m_jumpForce = 200f;
+        private bool m_isOnAir = false;
 
         [Range(0, 1f)] [SerializeField] private float m_crouchSpeed = .36f;
 
@@ -33,6 +34,8 @@ namespace FrancisPasive.Platformer._2D.Character
         private readonly string ANIMATOR_CROUCH = "isCrouching";
         private readonly string ANIMATOR_SPEED = "speed";
         private readonly string ANIMATOR_JUMP = "jumpTrigger";
+        private readonly string ANIMATOR_ON_AIR = "isOnAir";
+        private readonly string ANIMATOR_FALL = "isFalling";
 
         private void Awake()
         {
@@ -40,11 +43,26 @@ namespace FrancisPasive.Platformer._2D.Character
             {
                 m_transform = transform;
             }
+
         }
 
         private void FixedUpdate()
         {
             isGrounded = Physics2D.OverlapCircle(m_groundCheck.position, m_groundRadius, m_groundMask);
+
+            // Character landing
+            if (m_isOnAir && isGrounded)
+            {
+                Debug.Log("Landed");
+            }
+
+            // Check if character is on air
+            m_isOnAir = !isGrounded;
+            m_animator.SetBool(ANIMATOR_ON_AIR, m_isOnAir);
+
+            // Check if character is falling
+            bool isFalling = m_rigidbody.velocity.y < 0f;
+            m_animator.SetBool(ANIMATOR_FALL, isFalling);
         }
 
         public void Move(float horizontalMove, bool crouch, bool jump)
@@ -89,6 +107,7 @@ namespace FrancisPasive.Platformer._2D.Character
                 isGrounded = false;
                 m_animator.SetTrigger(ANIMATOR_JUMP);
                 m_rigidbody.AddForce(Vector2.up * m_jumpForce);
+
             }
         }
 
