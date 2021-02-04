@@ -27,6 +27,7 @@ namespace FrancisPasive.Platformer._2D.Character.Input
         private void FixedUpdate()
         {
             m_character.Move(m_horizontalMove, m_crouch, m_jump);
+            m_jump = false;
         }
 
     } // Platformer2DUserInputController end
