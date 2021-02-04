@@ -164,6 +164,7 @@ GameObject:
   - component: {fileID: 341722365}
   - component: {fileID: 341722363}
   - component: {fileID: 341722362}
+  - component: {fileID: 341722366}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -252,6 +253,20 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 0.66, y: 0.6}
   m_EdgeRadius: 0
+--- !u!114 &341722366
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 341722361}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d4be1a62dfddbd94888ef8dbecac7954, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_fallMultiplier: 2.5
+  m_rigidbody: {fileID: 341722362}
 --- !u!1 &469432904
 GameObject:
   m_ObjectHideFlags: 0
@@ -1139,7 +1154,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_isFacingRight: 1
   m_maxMoveSpeed: 4
-  m_jumpForce: 300
+  m_jumpForce: 320
   m_crouchSpeed: 0.36
   m_airControl: 1
   m_groundMask:
