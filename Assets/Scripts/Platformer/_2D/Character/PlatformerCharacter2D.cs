@@ -28,6 +28,7 @@ namespace FrancisPasive.Platformer._2D.Character
         [SerializeField] protected Transform m_wallCheck; // A position marking where to check if the character is facing wall.
         [SerializeField] private float m_wallRadius = .2f; // Radius of the overlap circle to determine if facing wall.
 
+        [SerializeField] protected Collider2D m_topCollider;
         [SerializeField] protected Transform m_transform;
         [SerializeField] protected Rigidbody2D m_rigidbody;
         [SerializeField] protected Animator m_animator;
@@ -82,6 +83,7 @@ namespace FrancisPasive.Platformer._2D.Character
                 crouch = false;
             }
 
+            m_topCollider.enabled = !crouch; // Desable the top collision collider to crouch
             m_animator.SetBool(ANIMATOR_CROUCH, crouch);
 
             if (isGrounded || m_airControl)
@@ -100,6 +102,12 @@ namespace FrancisPasive.Platformer._2D.Character
                     Flip();
                 }
 
+            }
+
+            // Can't jump when character is crouching
+            if (crouch)
+            {
+                jump = false;
             }
 
             if (jump && isGrounded)
